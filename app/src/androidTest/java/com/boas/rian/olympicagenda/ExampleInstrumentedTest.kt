@@ -1,4 +1,4 @@
-package com.example.olympicagenda
+package com.boas.rian.olympicagenda
 
 import androidx.test.platform.app.InstrumentationRegistry
 import androidx.test.ext.junit.runners.AndroidJUnit4

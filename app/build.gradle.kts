@@ -4,11 +4,11 @@ plugins {
 }
 
 android {
-    namespace = "com.example.olympicagenda"
+    namespace = "com.boas.rian.olympicagenda"
     compileSdk = 34
 
     defaultConfig {
-        applicationId = "com.example.olympicagenda"
+        applicationId = "com.boas.rian.olympicagenda"
         minSdk = 24
         targetSdk = 34
         versionCode = 1
@@ -41,7 +41,10 @@ android {
 }
 
 dependencies {
-
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation(libs.coil)
+    implementation(libs.logging.interceptor)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)

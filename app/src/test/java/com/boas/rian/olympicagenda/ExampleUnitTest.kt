@@ -1,4 +1,4 @@
-package com.example.olympicagenda
+package com.boas.rian.olympicagenda
 
 import org.junit.Test
 

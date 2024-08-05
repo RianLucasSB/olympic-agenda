@@ -23,15 +23,15 @@
         tools:itemCount="18"
         app:spanCount="3"
         tools:listitem="@layout/select_country_item"
-        app:layout_constraintBottom_toTopOf="@id/button"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/activity_select_favourite_country_button"
         app:layout_constraintTop_toBottomOf="@id/activity_select_favourite_country_text"
-        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
         />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/activity_select_favourite_country_button"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="NEXT"
