@@ -14,7 +14,7 @@ import com.boas.rian.olympicagenda.webclient.model.country.CountryResponse
 class CountriesAdapter(
     private val context: Context,
     countries: List<Country> = emptyList(),
-    private var onClick: (country: Country) -> Unit = {}
+    var onClick: (country: Country) -> Unit = {}
 ): RecyclerView.Adapter<CountriesAdapter.ViewHolder>() {
 
     private val countries = countries.toMutableList()

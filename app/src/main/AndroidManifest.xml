@@ -15,7 +15,10 @@
         android:theme="@style/Theme.OlympicAgenda"
         tools:targetApi="31">
         <activity
-            android:name="com.boas.rian.olympicagenda.ui.activity.SelectFavouriteCountryActivity"
+            android:name=".ui.activity.ListEventsActivity"
+            android:exported="false" />
+        <activity
+            android:name=".ui.activity.SelectFavouriteCountryActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -24,6 +27,5 @@
             </intent-filter>
         </activity>
     </application>
-
 
 </manifest>
