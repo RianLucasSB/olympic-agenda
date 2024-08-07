@@ -13,6 +13,16 @@
         android:layout_height="wrap_content"
         android:ems="10"
         android:inputType="date"
-        tools:layout_editor_absoluteX="74dp"
-        tools:layout_editor_absoluteY="46dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        tools:listitem="@layout/event_item"
+        app:layout_constraintTop_toBottomOf="@id/editTextDate" />
 </androidx.constraintlayout.widget.ConstraintLayout>

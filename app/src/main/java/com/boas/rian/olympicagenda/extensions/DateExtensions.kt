@@ -8,7 +8,7 @@ import java.util.*
 
 
 private val isoFormatter = DateTimeFormatter
-    .ofPattern("yyyy-MM-dd'T'HH:mm:ss.SSSXXX", Locale("UTC"))
+    .ofPattern("dd/MM/yyyy", Locale("UTC"))
 
 fun LocalDateTime.toFormattedString(): String = this.format(isoFormatter)
 
