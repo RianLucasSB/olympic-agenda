@@ -1,6 +1,7 @@
 package com.boas.rian.olympicagenda.webclient
 
 import com.boas.rian.olympicagenda.webclient.service.CountryService
+import com.boas.rian.olympicagenda.webclient.service.EventService
 import com.google.gson.GsonBuilder
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -23,4 +24,5 @@ class RetrofitInit {
         .build()
 
     val countryService = retrofit.create(CountryService::class.java)
+    val eventService = retrofit.create(EventService::class.java)
 }
