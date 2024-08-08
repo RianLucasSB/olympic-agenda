@@ -30,6 +30,8 @@ data class EventResponse(
             endDate?.toLocalDateTime(),
             status ?: "",
             genderCode ?: "",
-            competitors.map { it.competitor }
+            competitors.map { it.competitor },
+            disciplinePictogram ?: "",
+            disciplineName ?: ""
         )
 }

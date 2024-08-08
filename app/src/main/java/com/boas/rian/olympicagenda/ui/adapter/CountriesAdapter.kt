@@ -1,6 +1,7 @@
 package com.boas.rian.olympicagenda.ui.adapter
 
 import android.content.Context
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
@@ -42,6 +43,7 @@ class CountriesAdapter(
 
         fun bind(country: Country, position: Int){
             this.country = country
+            Log.i("CountriesAdapter", "bind: ${country.name}")
             binding.selectCountryItemNome.text = country.name
             binding.selectCountryItemImageView.load(country.flag)
             if(selectedCountryId == country.id){
@@ -52,13 +54,13 @@ class CountriesAdapter(
         }
     }
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CountriesAdapter.ViewHolder {
         return ViewHolder(SelectCountryItemBinding.inflate(LayoutInflater.from(context)), onClick)
     }
 
     override fun getItemCount(): Int = countries.size
 
-    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: CountriesAdapter.ViewHolder, position: Int) {
         holder.bind(countries[position], position)
     }
 

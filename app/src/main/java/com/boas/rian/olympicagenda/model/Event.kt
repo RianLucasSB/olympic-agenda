@@ -9,6 +9,8 @@ data class Event(
     val endDate: LocalDateTime?,
     val status: String,
     val genderCode: String,
-    val competitors: List<Competitor>
+    val competitors: List<Competitor>,
+    val disciplineImage: String,
+    val disciplineName: String,
 ) {
 }
