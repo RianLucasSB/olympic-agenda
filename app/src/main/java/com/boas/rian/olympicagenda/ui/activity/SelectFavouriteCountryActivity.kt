@@ -33,7 +33,6 @@ class SelectFavouriteCountryActivity : AppCompatActivity() {
 
     private val _selectedCountryId = MutableStateFlow<String?>(null)
 
-    // The UI collects from this StateFlow to get its state updates
     val selectedCountryId: StateFlow<String?> = _selectedCountryId
 
     override fun onCreate(savedInstanceState: Bundle?) {

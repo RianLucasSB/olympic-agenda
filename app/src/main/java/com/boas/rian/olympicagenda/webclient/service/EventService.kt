@@ -7,6 +7,6 @@ import retrofit2.http.Path
 import retrofit2.http.Query
 
 interface EventService {
-    @GET("events?country=BRA&date=2024-08-08")
-    suspend fun getAll(@Query("page") page: Int = 1): ApiResponse<EventResponse>
+    @GET("events?country=BRA")
+    suspend fun getAll(@Query("page") page: Int = 1, @Query("date") date: String): ApiResponse<EventResponse>
 }
