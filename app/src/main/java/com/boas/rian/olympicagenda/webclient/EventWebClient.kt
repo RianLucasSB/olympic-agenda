@@ -13,10 +13,10 @@ const val TAG = "EventWebClient"
 class EventWebClient {
     private val service = RetrofitInit().eventService
 
-    suspend fun getAll(page: Int = 1, date: LocalDate): PaginationResponse<List<Event>?>? {
+    suspend fun getAll(page: Int = 1, date: LocalDate, countryId: String): PaginationResponse<List<Event>?>? {
         return try {
             Log.i(TAG, "getAll: $date")
-            val response = service.getAll(page, date.toString())
+            val response = service.getAll(page, date.toString(), countryId)
             val meta = response.meta
             val data = response.data.map { it.event }
             PaginationResponse(data, meta)

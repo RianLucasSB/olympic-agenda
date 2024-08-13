@@ -20,25 +20,34 @@ class EventsAdapter(
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(event: Event) {
-            if(event.competitors.size > 2){
+            if (event.competitors.size > 2) {
                 binding.eventItemTwoCompetitorsContainer.visibility = View.GONE
                 binding.eventItemSeeAllCompetitors.visibility = View.VISIBLE
             } else {
-                binding.eventItemFirstCompetitorName.text = event.competitors[0].name.split(" ").take(2).joinToString(" ")
-                binding.eventItemSecondCompetitorName.text = event.competitors[1].name.split(" ").take(2).joinToString(" ")
+                binding.eventItemFirstCompetitorName.text =
+                    event.competitors[0].name.split(" ").take(2).joinToString(" ")
+                binding.eventItemSecondCompetitorName.text =
+                    event.competitors[1].name.split(" ").take(2).joinToString(" ")
                 binding.eventItemFirstCompetitorImage.load(event.competitors[0].countryFlag)
                 binding.eventItemSecondCompetitorImage.load(event.competitors[1].countryFlag)
             }
             binding.eventItemDisciplineText.text = event.disciplineName
             binding.eventItemGenderText.text = event.genderCode
             binding.eventItemDay.text = event.startDate?.toFormattedString()
-            binding.eventItemTime.text = "${event.startDate?.hour}:${event.startDate?.minute}"
+            binding.eventItemTime.text =
+                "${event.startDate?.hour}:${if (event.startDate?.minute == 0) "00" else event.startDate?.minute}"
             binding.eventItemDisciplineImage.load(event.disciplineImage)
         }
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EventsAdapterViewHolder {
-        return EventsAdapterViewHolder(EventItemBinding.inflate(LayoutInflater.from(context), parent, false))
+        return EventsAdapterViewHolder(
+            EventItemBinding.inflate(
+                LayoutInflater.from(context),
+                parent,
+                false
+            )
+        )
     }
 
     override fun getItemCount(): Int = events.size
@@ -47,7 +56,7 @@ class EventsAdapter(
         holder.bind(events[position])
     }
 
-    fun update(eventsList: List<Event>){
+    fun update(eventsList: List<Event>) {
         notifyItemRangeRemoved(0, events.size)
         this.events.clear()
         this.events.addAll(eventsList)

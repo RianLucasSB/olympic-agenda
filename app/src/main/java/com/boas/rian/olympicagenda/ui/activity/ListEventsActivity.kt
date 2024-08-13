@@ -1,5 +1,6 @@
 package com.boas.rian.olympicagenda.ui.activity
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
@@ -9,7 +10,10 @@ import androidx.lifecycle.repeatOnLifecycle
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.boas.rian.olympicagenda.databinding.ActivityListEventsBinding
+import com.boas.rian.olympicagenda.extensions.navigate
 import com.boas.rian.olympicagenda.extensions.toFormattedString
+import com.boas.rian.olympicagenda.preferences.dataStore
+import com.boas.rian.olympicagenda.preferences.selectedCountryPreferences
 import com.boas.rian.olympicagenda.repository.EventRepository
 import com.boas.rian.olympicagenda.ui.adapter.EventsAdapter
 import com.boas.rian.olympicagenda.ui.dialog.DatePickerDialog
@@ -32,6 +36,8 @@ class ListEventsActivity : AppCompatActivity() {
 
     private val selectedDate: StateFlow<LocalDate> = _selectedDate
 
+    private var selectedCountryId: String? = null
+
     private val adapter = EventsAdapter(this)
     private var page = 1
     private var totalPages = 0
@@ -41,9 +47,29 @@ class ListEventsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(binding.root)
+        verifySelectedCountry()
         initRecyclerView()
         configDatePicker()
-        loadEvents()
+    }
+
+    private fun verifySelectedCountry() {
+        lifecycleScope.launch {
+            repeatOnLifecycle(Lifecycle.State.STARTED){
+                dataStore.data.collect { preferences ->
+                    preferences[selectedCountryPreferences]?.let { countryId ->
+                        selectedCountryId = countryId
+                        loadEvents()
+                    } ?: navigateToSelectCountry()
+                }
+            }
+        }
+    }
+
+    private fun navigateToSelectCountry() {
+        navigate(SelectFavouriteCountryActivity::class.java){
+            this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
+            finish()
+        }
     }
 
     private fun configDatePicker() {
@@ -74,7 +100,7 @@ class ListEventsActivity : AppCompatActivity() {
 
     private fun loadEvents() {
         lifecycleScope.launch {
-            val events = eventRepository.getAll(page, selectedDate.value)
+            val events = eventRepository.getAll(page, selectedDate.value, selectedCountryId!!)
             events?.data?.let {
                 adapter.update(it)
                 page = events.meta.currentPage!!
@@ -88,7 +114,7 @@ class ListEventsActivity : AppCompatActivity() {
         progressIndicator.visibility = View.VISIBLE
         loading = true
         lifecycleScope.launch {
-            val events = eventRepository.getAll(page + 1, selectedDate.value)
+            val events = eventRepository.getAll(page + 1, selectedDate.value, selectedCountryId!!)
             events?.data?.let {
                 adapter.add(it)
                 page = events.meta.currentPage!!

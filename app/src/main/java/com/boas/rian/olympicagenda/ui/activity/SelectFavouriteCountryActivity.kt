@@ -4,9 +4,7 @@ import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.datastore.preferences.core.edit
-import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
-import androidx.lifecycle.repeatOnLifecycle
 import com.boas.rian.olympicagenda.databinding.ActivitySelectFavouriteCountryBinding
 import com.boas.rian.olympicagenda.extensions.navigate
 import com.boas.rian.olympicagenda.model.Country
@@ -40,16 +38,6 @@ class SelectFavouriteCountryActivity : AppCompatActivity() {
         setContentView(binding.root)
         initRecyclerView()
         configButton()
-
-        lifecycleScope.launch {
-            repeatOnLifecycle(Lifecycle.State.STARTED) {
-                dataStore.data.collect { preferences ->
-                    preferences[selectedCountryPreferences]?.let {
-                        navigateToMainActivity()
-                    }
-                }
-            }
-        }
     }
 
 
@@ -79,7 +67,10 @@ class SelectFavouriteCountryActivity : AppCompatActivity() {
 
         button.setOnClickListener {
             lifecycleScope.launch {
-                selectedCountryId.value?.let { selectCountry(it) }
+                selectedCountryId.value?.let {
+                    selectCountry(it)
+                    navigateToMainActivity()
+                }
             }
 
         }
@@ -93,7 +84,6 @@ class SelectFavouriteCountryActivity : AppCompatActivity() {
 
     private fun navigateToMainActivity() {
         navigate(ListEventsActivity::class.java) {
-            this.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP)
             finish()
         }
     }
